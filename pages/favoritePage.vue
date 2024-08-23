@@ -53,12 +53,15 @@
 import { mapState, mapActions } from "pinia";
 import { ProductsModule } from "~/stores/Products"
 import { Cart } from "~/stores/cart.js";
-import { auth } from "~/stores/auth"
 
 export default {
+    setup() {
+        definePageMeta({
+            middleware: ["auth"]
+        })
+    },
     methods: {
         ...mapActions(ProductsModule, ["getFavItems", "deletFavItem"]),
-        ...mapActions(auth, ["checkToken"]),
         ...mapActions(Cart, ["addCart"]),
         addToCart(item) {
             setTimeout(() => {
@@ -71,11 +74,7 @@ export default {
     computed: {
         ...mapState(ProductsModule, ["favorite"])
     },
-    beforeMount() {
-        this.checkToken()
-    },
     mounted() {
-        this.checkToken()
         this.getFavItems()
         const { $bus } = useNuxtApp();
         this.bus = $bus.$emit

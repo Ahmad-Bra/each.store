@@ -9,6 +9,13 @@ export default defineNuxtConfig({
       viewport: "width=device-width, initial-scale=1",
     },
   },
+  supabase: {
+    redirectOptions: {
+      login: "/login",
+      callback: "/",
+      exclude: ["/signUp"],
+    },
+  },
   ssr: true,
   modules: [
     "nuxt-aos",
@@ -17,6 +24,7 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "@nuxtjs/color-mode",
     "@nuxtjs/i18n",
+    "@nuxtjs/supabase",
   ],
   i18n: {
     vueI18n: "./i18n.config.js",

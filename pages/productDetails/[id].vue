@@ -65,13 +65,16 @@
 </template>
 
 <script>
-import { auth } from "~/stores/auth.js"
 import { ProductsModule } from "@/stores/Products"
 import { Cart } from "@/stores/cart"
 import { mapActions, mapState } from "pinia"
 export default {
+    setup() {
+        definePageMeta({
+            middleware: ["auth"]
+        })
+    },
     methods: {
-        ...mapActions(auth, ["checkToken"]),
         ...mapActions(ProductsModule, ['getSingleProd', 'addToFav']),
         ...mapActions(Cart, ['addCart']),
         addToCart(item) {
@@ -95,7 +98,6 @@ export default {
         this.loading = false
     },
     mounted() {
-        this.checkToken()
 
         const { $bus } = useNuxtApp();
         this.bus = $bus.$emit

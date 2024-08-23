@@ -46,7 +46,7 @@
                                                     class="font-weight-bold text-red">
                                                     ${{
                                                         Math.ceil(categor.price - Math.ceil(categor.price *
-                                                    categor.discountPercentage / 100)) }}</span>
+                                                            categor.discountPercentage / 100)) }}</span>
                                             </p>
                                 </v-card-text>
                                 <v-card-actions class="action">
@@ -76,46 +76,46 @@
 </template>
 
 <script>
-import { auth } from "~/stores/auth.js"
 import { ProductsModule } from "~/stores/Products"
 import { mapActions, mapState } from "pinia"
 export default {
     setup() {
-        const { $bus } = useNuxtApp();
-        let quickView = (product) => {
-            $bus.$emit("openQuickView", product)
-        }
+        definePageMeta({
+            middleware: ["auth"]
+        })
+    const { $bus } = useNuxtApp();
+    let quickView = (product) => {
+        $bus.$emit("openQuickView", product)
+    }
         return { quickView }
-    },
-    methods: {
+},
+methods: {
         ...mapActions(ProductsModule, ["getByCategory", "addToFav"]),
-        ...mapActions(auth, ["checkToken"]),
     },
-    computed: {
+computed: {
         ...mapState(ProductsModule, ["productsCategory", "catName"])
-    },
-    watch: {
+},
+watch: {
         async $route() {
-            document.documentElement.scrollTo(0, 0)
-            this.loading = true
-            await this.getByCategory(this.catName[0])
-            this.loading = false
-        }
-    },
-    async mounted() {
-        this.checkToken()
-        this.title = `${this.$route.params.id} page`
+        document.documentElement.scrollTo(0, 0)
         this.loading = true
         await this.getByCategory(this.catName[0])
         this.loading = false
-    },
-    data() {
-        return {
-            title: '',
-            ShownItem: {},
-            loading: false,
-        }
-    },
+    }
+},
+    async mounted() {
+    this.title = `${this.$route.params.id} page`
+    this.loading = true
+    await this.getByCategory(this.catName[0])
+    this.loading = false
+},
+data() {
+    return {
+        title: '',
+        ShownItem: {},
+        loading: false,
+    }
+},
 }
 </script>
 

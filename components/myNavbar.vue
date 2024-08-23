@@ -29,8 +29,8 @@
               </template>
               <v-card class="menu" max-width="300">
                 <v-list>
-                  <v-list-item prepend-avatar="https://cdn.vuetifyjs.com/images/john.jpg" title="Hello there!"
-                    subtitle="John Leider">
+                  <v-list-item prepend-avatar="https://cdn.vuetifyjs.com/images/john.jpg" title="Welcome :"
+                    :subtitle="userEmail">
                     <template v-slot:append>
                       <v-btn style="font-weight: bold;" :class="fav ? 'text-red' : ''" icon="mdi-heart" variant="text"
                         @click="fav = !fav"></v-btn>
@@ -67,7 +67,7 @@
                 v-for="link in categories" :key="link.title" @click="this.catName[0] = link.route">
                 <nuxt-link :to="{ path: `/productCategory/${link.route}` }"
                   style="text-decoration: none; color: white">{{
-                    $t(link.title)
+                  $t(link.title)
                   }} </nuxt-link>
               </li>
             </ul>
@@ -168,10 +168,11 @@
           </template>
           <v-card max-width="300">
             <v-list>
-              <v-list-item prepend-avatar="https://cdn.vuetifyjs.com/images/john.jpg" title="Hello there!"
-                subtitle="John Leider">
+              <v-list-item prepend-avatar="https://cdn.vuetifyjs.com/images/john.jpg" title="Welcome :"
+                :subtitle="userEmail">
                 <template v-slot:append>
-                  <v-btn :class="fav ? 'text-red' : ''" icon="mdi-heart" variant="text" @click="fav = !fav"></v-btn>
+                  <v-btn style="font-weight: bold;" :class="fav ? 'text-red' : ''" icon="mdi-heart" variant="text"
+                    @click="fav = !fav"></v-btn>
                 </template>
               </v-list-item>
             </v-list>
@@ -206,6 +207,14 @@ import { mapState } from "pinia"
 
 export default {
   setup() {
+    definePageMeta({
+      middleware: ["auth"]
+    })
+    const client = useSupabaseClient()
+    const user = useSupabaseUser()
+    let userEmail = ref('')
+    userEmail.value = user.value.email
+
     const { locale, setLocale } = useI18n()
     const { $bus } = useNuxtApp();
     let openSideBar = () => {
@@ -214,17 +223,26 @@ export default {
     let openCart = () => {
       $bus.$emit('openCart');
     }
-    return { openCart, locale, setLocale, openSideBar }
+
+    //logout user
+
+    let logout = async () => {
+      try {
+        let { error } = await client.auth.signOut()
+        if (error) {
+          alert(error.message)
+        }
+      } catch (error) {
+        throw error
+      }
+    }
+    return { openCart, locale, setLocale, openSideBar, logout, userEmail, user }
   },
   computed: {
     ...mapState(ProductsModule, ["categories", "catName"]),
     ...mapState(Cart, ["cartItem"])
   },
   methods: {
-    logout() {
-      localStorage.clear()
-      navigateTo('/login')
-    },
     updateSelectedLang(lang) {
       this.selectedLang.splice(0, 1, lang);
     },

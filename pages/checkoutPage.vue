@@ -98,10 +98,14 @@
 
 <script>
 import { Cart } from "~/stores/cart.js"
-import { auth } from "~/stores/auth.js"
 import { mapActions, mapState } from "pinia";
 
 export default {
+    setup() {
+        definePageMeta({
+            middleware: ["auth"]
+        })
+    },
     data() {
         return {
             quantity: 1,
@@ -135,11 +139,9 @@ export default {
         }
     },
     mounted() {
-        this.checkToken()
     },
     methods: {
         ...mapActions(Cart, ['deletItem']),
-        ...mapActions(auth, ["checkToken"]),
     },
     computed: {
         ...mapState(Cart, ["cartItem"]),

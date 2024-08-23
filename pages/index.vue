@@ -10,25 +10,29 @@
         <HomePageUpperBanner />
         <HomePageFeaturesServices />
         <HomePageImagesBanner />
-        <HomePageProductsComponent :products="products" title="Flash Deals" color="#C62828" />
-        <HomePageTopCategory :categor="products" />
-        <HomePageNewProducts :newItmes="topFragrances" />
+        <!-- <HomePageProductsComponent :products="products" title="Flash Deals" color="#C62828" /> -->
+        <!-- <HomePageTopCategory :categor="products" /> -->
+        <!-- <HomePageNewProducts :newItmes="topFragrances" /> -->
         <HomePageFeaturesServices />
         <HomePageFeaturedBand />
-        <HomePageProductsComponent :products="topFragrances" title="Top Fragrances" color="#C62828" />
+        <!-- <HomePageProductsComponent :products="topFragrances" title="Top Fragrances" color="#C62828" /> -->
         <HomePageTopTelevision />
         <HomePageWhyShop />
         <myFooter />
     </div>
 </template>
 <script>
-
-import { auth } from "~/stores/auth"
 import { ProductsModule } from "~/stores/Products"
 import { mapActions, mapState } from "pinia"
 import { Cart } from "~/stores/cart.js"
-
 export default {
+    setup() {
+        const user = useSupabaseUser()
+        definePageMeta({
+            middleware: ["auth"]
+        })
+        return { user }
+    },
     data() {
         return {
             openConfirem: false,
@@ -36,7 +40,6 @@ export default {
     },
     methods: {
         ...mapActions(ProductsModule, ["getProducts"]),
-        ...mapActions(auth, ["checkToken"]),
     },
     computed: {
         ...mapState(ProductsModule, ["products", "newProducts", "topFragrances"]),
@@ -47,7 +50,6 @@ export default {
         }
     },
     async mounted() {
-        this.checkToken()
         await this.getProducts()
     },
 }

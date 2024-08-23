@@ -10,12 +10,12 @@
         <HomePageUpperBanner />
         <HomePageFeaturesServices />
         <HomePageImagesBanner />
-        <!-- <HomePageProductsComponent :products="products" title="Flash Deals" color="#C62828" /> -->
-        <!-- <HomePageTopCategory :categor="products" /> -->
-        <!-- <HomePageNewProducts :newItmes="topFragrances" /> -->
+        <HomePageProductsComponent :products="products" title="Flash Deals" color="#C62828" />
+        <HomePageTopCategory :categor="products" />
+        <HomePageNewProducts :newItmes="topFragrances" />
         <HomePageFeaturesServices />
         <HomePageFeaturedBand />
-        <!-- <HomePageProductsComponent :products="topFragrances" title="Top Fragrances" color="#C62828" /> -->
+        <HomePageProductsComponent :products="topFragrances" title="Top Fragrances" color="#C62828" />
         <HomePageTopTelevision />
         <HomePageWhyShop />
         <myFooter />

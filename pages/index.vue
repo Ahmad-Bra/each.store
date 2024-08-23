@@ -36,7 +36,7 @@ export default {
         definePageMeta({
             middleware: ["auth"]
         })
-        return { user }
+        // return { user }
     },
     data() {
         return {

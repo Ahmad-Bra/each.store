@@ -27,16 +27,16 @@ import { mapActions, mapState } from "pinia"
 import { Cart } from "~/stores/cart.js"
 export default {
     setup() {
-        // const user = useSupabaseUser()
-        // watch(() => {
-        //     if (!user.value) {
-        //         return navigateTo('/login')
-        //     }
-        // })
-        definePageMeta({
-            middleware: ["auth"]
+        const user = useSupabaseUser()
+        watch(() => {
+            if (!user.value) {
+                return navigateTo('/login')
+            }
         })
-        // return { user }
+        // definePageMeta({
+        //     middleware: ["auth"]
+        // })
+        return { user }
     },
     data() {
         return {

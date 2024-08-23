@@ -28,10 +28,15 @@ import { Cart } from "~/stores/cart.js"
 export default {
     setup() {
         const user = useSupabaseUser()
-        definePageMeta({
-            middleware: ["auth"]
+        watch(() => {
+            if (!user.value) {
+                return navigateTo('/login')
+            }
         })
-        return { user }
+        // definePageMeta({
+        //     middleware: ["auth"]
+        // })
+        // return { user }
     },
     data() {
         return {

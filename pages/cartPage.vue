@@ -141,9 +141,9 @@ import { Cart } from "~/stores/cart.js"
 import { mapActions, mapState } from "pinia";
 export default {
 	setup() {
-		definePageMeta({
-			middleware: ["auth"]
-		})
+		// definePageMeta({
+		// 	middleware: ["auth"]
+		// })
 	},
 	data() {
 		return {

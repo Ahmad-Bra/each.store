@@ -83,39 +83,39 @@ export default {
         definePageMeta({
             middleware: ["auth"]
         })
-    const { $bus } = useNuxtApp();
-    let quickView = (product) => {
-        $bus.$emit("openQuickView", product)
-    }
+        const { $bus } = useNuxtApp();
+        let quickView = (product) => {
+            $bus.$emit("openQuickView", product)
+        }
         return { quickView }
-},
-methods: {
+    },
+    methods: {
         ...mapActions(ProductsModule, ["getByCategory", "addToFav"]),
     },
-computed: {
+    computed: {
         ...mapState(ProductsModule, ["productsCategory", "catName"])
-},
-watch: {
+    },
+    watch: {
         async $route() {
-        document.documentElement.scrollTo(0, 0)
+            document.documentElement.scrollTo(0, 0)
+            this.loading = true
+            await this.getByCategory(this.catName[0])
+            this.loading = false
+        }
+    },
+    async mounted() {
+        this.title = `${this.$route.params.id} page`
         this.loading = true
         await this.getByCategory(this.catName[0])
         this.loading = false
-    }
-},
-    async mounted() {
-    this.title = `${this.$route.params.id} page`
-    this.loading = true
-    await this.getByCategory(this.catName[0])
-    this.loading = false
-},
-data() {
-    return {
-        title: '',
-        ShownItem: {},
-        loading: false,
-    }
-},
+    },
+    data() {
+        return {
+            title: '',
+            ShownItem: {},
+            loading: false,
+        }
+    },
 }
 </script>
 

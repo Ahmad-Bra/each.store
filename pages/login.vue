@@ -75,9 +75,15 @@
                                 </div>
                                 <button @click="login()" class="logins-btn text-center">Log in</button>
                             </form>
-                            <div class="logins-box-row d-flex align-items-center justify-center">Don't have an
-                                account ?
-                                <NuxtLink to="/signUp">Create account</NuxtLink>
+                            <div class="logins-box-row d-flex align-items-center justify-space-between ">
+                                <nuxt-link to="/" style="text-decoration: none; " class="link text-black">
+                                    <v-icon>mdi-arrow-left</v-icon>
+                                    Back Home</nuxt-link>
+                                <div>
+                                    Don't have an
+                                    account ?
+                                    <NuxtLink to="/signUp">Create account</NuxtLink>
+                                </div>
                             </div>
                         </div>
                     </v-col>
@@ -95,7 +101,6 @@ export default {
         let password = ref('')
         const user = useSupabaseUser()
         const client = useSupabaseClient()
-
         //sign up with github account
         const loginGithub = async () => {
             const { data, error } = await client.auth.signInWithOAuth({ provider: "github" })
@@ -124,7 +129,7 @@ export default {
             }
         })
         return {
-            client, user, loginGoogle, loginGithub, email, password, login
+            client, user, loginGoogle, loginGithub, email, password, login,
         }
     },
     data() {

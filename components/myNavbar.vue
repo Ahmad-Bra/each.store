@@ -28,7 +28,7 @@
                   mdi-account</v-icon>
               </template>
               <v-card class="menu" max-width="300">
-                <v-list>
+                <v-list v-if="user">
                   <v-list-item prepend-avatar="https://cdn.vuetifyjs.com/images/john.jpg" title="Welcome :"
                     :subtitle="userEmail">
                     <template v-slot:append>
@@ -37,17 +37,27 @@
                     </template>
                   </v-list-item>
                 </v-list>
-                <v-card-text>
-                  voluptatem enim? Iure perspiciatis fuga porro assumenda beatae minus,
-                  reprehenderit amet
-                  a.
+                <v-list v-if="!user">
+                  <v-list-item prepend-avatar="/public/images/user.png">
+                  </v-list-item>
+                </v-list>
+                <v-card-text v-if="!user">
+                  You are not signed in, Go sign in for more features
+                  <v-card-actions>
+                    <v-btn class=" text-primary">
+                      <nuxt-link to="/login" style="text-decoration: none">{{ $t('Sign In') }} &nbsp;</nuxt-link>
+                    </v-btn>
+                  </v-card-actions>
                 </v-card-text>
-                <v-card-actions>
-                  <v-btn @click="logout()" class=" text-error">
-                    {{ $t('Logout') }} &nbsp;
-                    <v-icon style=" font-size: 25px;">mdi-logout</v-icon>
-                  </v-btn>
-                </v-card-actions>
+                <v-card-text v-if="user">
+                  Welcome in our shop
+                  <v-card-actions>
+                    <v-btn @click=" logout()" class=" text-error">
+                      {{ $t('Logout') }} &nbsp;
+                      <v-icon style=" font-size: 25px;">mdi-logout</v-icon>
+                    </v-btn>
+                  </v-card-actions>
+                </v-card-text>
               </v-card>
             </v-menu>
             <v-icon @click="navigateTo('/favoritePage')" style="margin-right: 10px; text-align: end;"
@@ -67,7 +77,7 @@
                 v-for="link in categories" :key="link.title" @click="this.catName[0] = link.route">
                 <nuxt-link :to="{ path: `/productCategory/${link.route}` }"
                   style="text-decoration: none; color: white">{{
-                  $t(link.title)
+                    $t(link.title)
                   }} </nuxt-link>
               </li>
             </ul>
@@ -213,7 +223,9 @@ export default {
     const client = useSupabaseClient()
     const user = useSupabaseUser()
     let userEmail = ref('')
-    userEmail.value = user.value.email
+    if(user.value){
+      userEmail.value = user.value.email
+    }
 
     const { locale, setLocale } = useI18n()
     const { $bus } = useNuxtApp();
@@ -236,7 +248,7 @@ export default {
         throw error
       }
     }
-    return { openCart, locale, setLocale, openSideBar, logout, userEmail, user }
+    return { openCart, locale, setLocale, openSideBar, logout, user, userEmail }
   },
   computed: {
     ...mapState(ProductsModule, ["categories", "catName"]),

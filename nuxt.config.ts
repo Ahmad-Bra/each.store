@@ -13,7 +13,7 @@ export default defineNuxtConfig({
     redirectOptions: {
       login: "/login",
       callback: "/",
-      exclude: ["/signUp"],
+      exclude: ["/*"],
     },
   },
   ssr: true,

@@ -1,5 +1,6 @@
 <template>
-    <div class="why-shop py-15" style="color: white;">
+    <div class="why-shop py-15" style="color: white;" data-aos="fade-right" data-aos-duration="10000"
+        data-aos-easing="linear">
         <v-container fluid>
             <h1 class="text-center py-5" style=" font-weight: bold; font-size: 40px;"><span
                     style="color: aquamarine;s">Why

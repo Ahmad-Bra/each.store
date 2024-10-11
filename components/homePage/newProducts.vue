@@ -1,5 +1,5 @@
 <template>
-	<div class="newProducts">
+	<div class="newProducts" data-aos="fade-left" data-aos-duration="10000" data-aos-easing="linear">
 		<v-container fluid>
 			<h1 class="text-red font-wight-bold py-5">New products</h1>
 			<v-row class="align-center ">
@@ -38,8 +38,8 @@
 										<p>
 											({{ item.title }})
 											{{
-												item.description.length <= 40 ? item.description : item.description.slice(0,
-													20) }} ... </p>
+											item.description.length <= 40 ? item.description : item.description.slice(0,
+												20) }} ... </p>
 												<v-rating v-model="item.rating" density="compact"
 													color="yellow-darken-3" half-increment readonly>
 												</v-rating>
@@ -47,17 +47,17 @@
 													<del>${{ item.price }}</del> From<span
 														class="font-weight-bold text-red">
 														${{
-															Math.ceil(item.price -
-																Math.ceil(
-																	(item.price * item.discountPercentage) / 100
-																))
+														Math.ceil(item.price -
+														Math.ceil(
+														(item.price * item.discountPercentage) / 100
+														))
 														}}</span>
 												</p>
 									</v-card-text>
 									<v-card-actions class="action">
 										<v-btn-toggle class="mb-5 action" v-model="ShownItem[item.title]">
-											<v-btn size="x-small action" v-for="(pic, i) in item.images" :value="pic"
-												:key="i">
+											<v-btn class="img-btn" size="x-small action" v-for="(pic, i) in item.images"
+												:value="pic" :key="i">
 												<img :src="pic" style="
                             width: 40px;
                             height: 40px;
@@ -161,7 +161,7 @@ export default {
 .dark-mode .swiper-prev,
 .dark-mode .v-skeleton-loader,
 .dark-mode .action,
-.dark-mode .btn,
+.dark-mode .img-btn,
 .dark-mode .card {
 	background-color: #0a0313 !important;
 	color: white !important;

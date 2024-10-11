@@ -1,5 +1,6 @@
 <template>
-    <div class="img-landing" style="background-color: #eee ; padding: 20px;">
+    <div class="img-landing" style="background-color: #eee ; padding: 20px;" data-aos="fade-right"
+        data-aos-duration="10000" data-aos-easing="linear">
         <v-container fluid>
             <v-row class="ga-.25 justify-center">
                 <v-col cols="12" md="6" lg="4" sm="6">

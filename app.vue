@@ -2,22 +2,22 @@
   <div>
     <HomePageQuickView></HomePageQuickView>
     <v-dialog transition="dialog-bottom-transition" width="auto" v-model="openConfirem">
-      <v-card class="text-center pa-3" style="height: 320px; width:320px; ">
+      <v-card class="text-center pa-3" style=" width:320px; padding: 24px 20px !important;  ">
         <v-card-title>
-          <v-icon style="font-size: 70px; padding: 50px; border-radius: 50%; " class="bg-error">
+          <v-icon style="font-size: 50px; padding: 40px; border-radius: 50%; margin-bottom: 24px;"
+            class="bg-red-darken-3">
             mdi-delete
           </v-icon>
         </v-card-title>
-        <v-card-text class="font-weight-bold">
+        <div class="font-weight-bold pa-0 mb-5">
           Are you sure you want to delete : <span class=" text-error"> {{ itemTitle }} </span> ?
-        </v-card-text>
+        </div>
         <v-card-actions>
           <v-btn class="text-white bg-info" text="Close Dialog" @click="openConfirem = false">Cansel</v-btn>
           <v-btn class="text-white bg-error" text="Close Dialog " @click="deleteItemConfiremed()">Delete</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
-
     <v-dialog transition="dialog-bottom-transition" width="auto" v-model="openConfiremAll">
       <v-card class="text-center pa-3" style="height: 320px; width:320px; ">
         <v-card-title>
@@ -105,6 +105,14 @@ export default {
 </script>
 
 <style>
+html[dir=rtl] body {
+  font-family: "Almarai", sans-serif !important;
+}
+
+body {
+  font-family: "Almarai", sans-serif !important;
+}
+
 .page-enter-active,
 .page-leave-active {
   transition: all 0.4s;

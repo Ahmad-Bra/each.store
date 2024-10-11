@@ -1,5 +1,5 @@
 <template>
-    <div class="category">
+    <div class="category" data-aos="fade-right" data-aos-duration="10000" data-aos-easing="linear">
         <div class="img-holder">
             <img src="/images/cyber-banner.webp" alt="">
         </div>
@@ -42,13 +42,25 @@ export default {
     height: 100%;
 }
 
+.swiper-button-next,
+.swiper-button-prev {
+    width: 30px;
+    height: 30px;
+}
+
 .swiper-button-next::after,
 .swiper-button-prev::after {
-    font-size: 15px !important;
-    background-color: white;
+    font-size: 12px !important;
+    background-color: #ffffffbf;
     border: 1px solid blue;
     border-radius: 50%;
-    padding: 10px
+    padding: 10px;
+    width: 30px;
+    font-weight: bold;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .dark-mode .top-category h1 {

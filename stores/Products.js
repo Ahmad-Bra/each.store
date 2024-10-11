@@ -54,6 +54,7 @@ export const ProductsModule = defineStore("ProductsModule", {
   }),
   actions: {
     addToFav(item) {
+      item.quantity = 1;
       this.favorite.push(item);
       localStorage.setItem("fav-item", JSON.stringify(this.favorite));
     },
@@ -78,7 +79,7 @@ export const ProductsModule = defineStore("ProductsModule", {
           this.newProducts = res.data.products.filter(
             (el) => el.category === "laptops"
           );
-          this.products = res.data.products.slice(0, 20);
+          this.products = res.data.products.slice(0, 10);
           this.topFragrances = this.products.filter(
             (el) => el.category === "fragrances"
           );

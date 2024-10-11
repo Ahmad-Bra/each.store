@@ -1,5 +1,5 @@
 <template>
-    <div class="featured-band py-12">
+    <div class="featured-band py-12" data-aos="fade-right" data-aos-duration="10000" data-aos-easing="linear">
         <v-container fluid>
             <v-row class="my-5">
                 <v-col cols="12">

@@ -1,5 +1,5 @@
 <template>
-    <div class="landing">
+    <div class="landing" data-aos="zoom-out">
         <div class="parent">
             <div class="img-holder">
                 <img src="/images/banner-bg.jpg" alt="">
@@ -38,8 +38,11 @@ export default {
     }
 
     .banner-info h1 {
+        max-width: 500px;
         color: white;
-        font-size: 50px;
+        font-size: 67px;
+        font-family: "Londrina Sketch", "Londrina Sketch Fallback: Arial", sans-serif;
+        font-weight: 600;
     }
 
     .banner-info P {
@@ -51,47 +54,39 @@ export default {
     }
 }
 
-@media (min-width:1285px) {
-    .landing {
-        margin-top: 140px;
-    }
-}
-
 @media (max-width:1285px) {
     .parent {
-        margin-top: 68px;
+
         font-size: 20px;
+
+        h1 {
+            font-size: 40px !important;
+        }
     }
 
-    h1 {
-        font-size: 40px !important;
-    }
 }
 
 @media (max-width:992px) {
     .banner-info {
         font-size: 15px !important;
+
+        h1 {
+            font-size: 34px !important;
+        }
     }
 
-    h1 {
-        font-size: 34px !important;
-    }
 }
 
 @media (max-width:767px) {
-    .parent {
-        margin-top: 63px;
-
-    }
 
     .banner-info {
         top: 0 !important;
         font-size: 12px !important;
-    }
 
-    h1 {
-        font-size: 24px !important;
-        padding-top: 2px;
+        h1 {
+            font-size: 24px !important;
+            padding-top: 2px;
+        }
     }
 }
 </style>

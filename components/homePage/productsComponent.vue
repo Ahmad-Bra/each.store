@@ -1,5 +1,5 @@
 <template>
-    <div class="products py-5">
+    <div class="products py-5" data-aos="zoom-in" data-aos-duration="5000" data-aos-easing="linear">
         <v-container fluid>
             <h1 :style="`color: ${color}`" class="font-wight-bold py-5"> {{ title }} </h1>
             <v-row v-if="!products">

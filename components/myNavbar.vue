@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar position-fixed w-100 d-flex align-center">
+  <div class="navbar w-100 d-flex align-center">
     <div class="main-nav" style=" background-color: rgb(3, 3, 154); padding: 10px 20px; width: 100%">
       <v-row class=" gap-3 align-center justify-center">
         <v-col cols="2 text-center">
@@ -7,28 +7,27 @@
             @click="$router.push({ path: '/' })" src="/images/logo.jpg" alt="logo">
         </v-col>
         <v-col cols="6">
-          <div style="display: flex; align-items: center; width:100%;">
-            <v-autocomplete style="color: #eee;" :items="routes" v-model="catName[0]" class="w-75 px-5 inp"
-              :label="$t('search in store')"></v-autocomplete>
-            <v-btn @click="navigateTo(`/productCategory/${catName.length > 0 ? catName[0] : 'try again'}`)"
-              class="pa-3 bg-black" style=" color: white; background-color:  #2a19b6 !important;">
+          <div style="display: flex; width:100%;">
+            <v-autocomplete prepend-inner-icon="mdi-magnify" clearable style="color: #eee;" :items="routes"
+              v-model="catName[0]" class="w-75 px-5 inp" :label="$t('search in store')"></v-autocomplete>
+            <v-btn
+              style="text-align: center; align-content: center;transform: translateY(10px); background-color: rgb(0 82 180 / 0%) !important"
+              @click="navigateTo(`/productCategory/${catName.length > 0 ? catName[0] : 'Some Thing Went Wrong, Try Again!'}`)"
+              class="pa-3 bg-black">
               {{ $t('search') }}
             </v-btn>
           </div>
         </v-col>
         <v-col cols="4">
-          <div class="icons d-flex align-center justify-end ga-5">
-            <div class="info " style="color: white;">
-              <p> {{ $t('Available') }} 24/7 {{ $t('at') }} <br> <strong>(090)-130-353</strong></p>
-            </div>
-            <v-menu v-model="menu" :close-on-content-click="false" location="end">
+          <div class="icons d-flex align-center justify-end ga-2">
+            <v-menu v-if="user" v-model="menu" :close-on-content-click="false" location="end">
               <template v-slot:activator="{ props }">
                 <v-icon v-bind="props" style="margin-right: 10px; text-align: end;" color="orange-lighten-4 "
                   size="40px">
                   mdi-account</v-icon>
               </template>
               <v-card class="menu" max-width="300">
-                <v-list v-if="user">
+                <v-list>
                   <v-list-item prepend-avatar="https://cdn.vuetifyjs.com/images/john.jpg" title="Welcome :"
                     :subtitle="userEmail">
                     <template v-slot:append>
@@ -37,36 +36,32 @@
                     </template>
                   </v-list-item>
                 </v-list>
-                <v-list v-if="!user">
-                  <v-list-item prepend-avatar="/public/images/user.png">
-                  </v-list-item>
-                </v-list>
-                <v-card-text v-if="!user">
-                  You are not signed in, Go sign in for more features
-                  <v-card-actions>
-                    <v-btn class=" text-primary">
-                      <nuxt-link to="/login" style="text-decoration: none">{{ $t('Sign In') }} &nbsp;</nuxt-link>
-                    </v-btn>
-                  </v-card-actions>
-                </v-card-text>
                 <v-card-text v-if="user">
-                  Welcome in our shop
-                  <v-card-actions>
+                  <ul class="user-links">
+                    <li>
+                      <NuxtLink to="/favoritePage"> <v-icon>mdi-heart</v-icon>My Wishlist </NuxtLink>
+                    </li>
+                    <li>
+                      <NuxtLink to="/order/"> <v-icon>mdi-order-bool-ascending-variant</v-icon>My Orders
+                      </NuxtLink>
+                    </li>
+                  </ul>
+                  <v-card-actions class="pa-0">
                     <v-btn @click=" logout()" class=" text-error">
                       {{ $t('Logout') }} &nbsp;
                       <v-icon style=" font-size: 25px;">mdi-logout</v-icon>
                     </v-btn>
                   </v-card-actions>
                 </v-card-text>
+
+
               </v-card>
             </v-menu>
-            <v-icon @click="navigateTo('/favoritePage')" style="margin-right: 10px; text-align: end;"
-              color="orange-lighten-4 " size="40px">
-              mdi-heart</v-icon>
+            <v-btn @click="navigateTo('/login')" v-if="!user" rounded class="sign-btn">Sign in </v-btn>
             <v-icon style="margin-right: 10px; text-align: end;" color="orange-lighten-4 " size="40px"
               @click="openCart()">
               mdi-cart</v-icon>
-            <v-badge location="right top" :content="cartItem.length" offsetX="40" offsetY="-15"
+            <v-badge location="right top" :content="cartItem.length" offsetX="25" offsetY="-15"
               color="red-darken-3"></v-badge>
           </div>
         </v-col>
@@ -170,13 +165,13 @@
       <div class="text-center d-flex align-center">
         <v-app-bar-nav-icon @click="openSideBar()" variant="text" class="text-white"></v-app-bar-nav-icon>
       </div>
-      <div>
-        <v-menu v-model="menuRespo" :close-on-content-click="false" location="end">
+      <div class="d-flex align-center ga-2">
+        <v-menu v-if="user" v-model="menuRespo" :close-on-content-click="false" location="end">
           <template v-slot:activator="{ props }">
             <v-icon v-bind="props" style="margin-right: 10px; text-align: end;" color="orange-lighten-4 " size="40px">
               mdi-account</v-icon>
           </template>
-          <v-card max-width="300">
+          <v-card class="menu" max-width="300">
             <v-list>
               <v-list-item prepend-avatar="https://cdn.vuetifyjs.com/images/john.jpg" title="Welcome :"
                 :subtitle="userEmail">
@@ -187,23 +182,29 @@
               </v-list-item>
             </v-list>
             <v-card-text>
-              voluptatem enim? Iure perspiciatis fuga porro assumenda beatae minus,
-              reprehenderit amet
-              a.
+              <ul class="user-links">
+                <li>
+                  <NuxtLink to="/favoritePage"> <v-icon>mdi-heart</v-icon>My Wishlist </NuxtLink>
+                </li>
+                <li>
+                  <NuxtLink to="/order/"> <v-icon>mdi-order-bool-ascending-variant</v-icon>My Orders
+                  </NuxtLink>
+                </li>
+              </ul>
+              <v-card-actions class="pa-0">
+                <v-btn @click=" logout()" class=" text-error">
+                  {{ $t('Logout') }} &nbsp;
+                  <v-icon style=" font-size: 25px;">mdi-logout</v-icon>
+                </v-btn>
+              </v-card-actions>
             </v-card-text>
-            <v-card-actions>
-              <v-btn @click="logout()" class=" text-error">
-                Logout &nbsp;
-                <v-icon style=" font-size: 25px;">mdi-logout</v-icon>
-              </v-btn>
-            </v-card-actions>
           </v-card>
         </v-menu>
-        <v-icon @click="navigateTo('/favoritePage')" style="margin-right: 10px; text-align: end;"
-          color="orange-lighten-4 " size="40px">
-          mdi-heart</v-icon>
+        <v-btn @click="navigateTo('/login')" v-if="!user" rounded class="sign-btn">Sign in </v-btn>
         <v-icon style="margin-right: 10px; text-align: end;" color="orange-lighten-4 " size="40px" @click="openCart()">
           mdi-cart</v-icon>
+        <v-badge location="right top" :content="cartItem.length" offsetX="25" offsetY="-15"
+          color="red-darken-3"></v-badge>
       </div>
     </div>
 
@@ -223,7 +224,7 @@ export default {
     const client = useSupabaseClient()
     const user = useSupabaseUser()
     let userEmail = ref('')
-    if(user.value){
+    if (user.value) {
       userEmail.value = user.value.email
     }
 
@@ -283,11 +284,56 @@ export default {
 <style lang="scss">
 .navbar {
   z-index: 9;
+  position: sticky;
+  top: 0;
 
   & input {
     border-radius: 20px;
     outline: none;
     height: 40px;
+  }
+}
+
+.dark-mode {
+  .user-links {
+    li a {
+      color: #a0a0ef;
+    }
+  }
+}
+
+.sign-btn {
+  background-color: #7f7fdb !important;
+  color: white;
+}
+
+.user-links {
+  li {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+
+    & &:hover {
+      background: #f0f0f0;
+      border-radius: 6px;
+      transition: .3s;
+
+      & a {
+        color: rgba(39, 39, 133, 0.947);
+      }
+    }
+
+    .v-icon {
+      color: rgba(39, 39, 133, 0.947);
+      margin-inline-end: 10px;
+    }
+
+    a {
+      text-decoration: none;
+      color: #121212;
+    }
   }
 }
 

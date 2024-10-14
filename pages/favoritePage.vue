@@ -10,7 +10,7 @@
     <v-container fluid>
       <v-row>
         <v-col cols="12">
-          <h1>Your Favorites</h1>
+          <h1>{{ $t('Your Favorites') }}</h1>
           <v-breadcrumbs color="grey" :items="items">
             <template v-slot:divider>
               <v-icon icon="mdi-chevron-right"></v-icon>
@@ -36,8 +36,9 @@
                       item.discountPercentage / 100)) }}</span>
                   <div class="d-flex align-center justify-space-between ga-3">
                     <v-btn @click="addToCart(item)"
-                      style="color: white; background-color: black; font-weight: bold;  height: 40px;" rounded> Add To
-                      Cart</v-btn>
+                      style="color: white; background-color: black; font-weight: bold;  height: 40px;" rounded>{{
+                        $t('Add To Cart')
+                      }}</v-btn>
                   </div>
                 </div>
               </v-col>

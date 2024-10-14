@@ -33,11 +33,14 @@ export default defineNuxtConfig({
     "@nuxtjs/supabase",
     "@unlok-co/nuxt-stripe",
     "@nuxt/fonts",
+    "@vueuse/nuxt",
   ],
   runtimeConfig: {
     public: {
       stripePK: process.env.STRIPE_PK,
       strpeSK: process.env.STRIPE_SK,
+      SUPABASE_API_URL: process.env.SUPABASE_API_URL,
+      SUPABASE_API_KEY: process.env.SUPABASE_API_KEY,
     },
   },
   i18n: {

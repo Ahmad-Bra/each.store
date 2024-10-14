@@ -3,7 +3,9 @@
     <v-icon color="error">
       mdi-delete
     </v-icon>
-    <p class="text-black">Delete {{ orderStore.prodIds.length }} Items</p>
+    <p class="text-black"> {{ $t('Delete') }} <span style="font-weight: bold; ">{{ orderStore.prodIds.length }}</span>
+      {{
+        $t('Items') }} </p>
   </div>
 
 </template>

@@ -10,11 +10,12 @@
           </v-icon>
         </v-card-title>
         <div class="font-weight-bold pa-0 mb-5">
-          Are you sure you want to delete : <span class=" text-error"> {{ itemTitle }} </span> ?
+          {{ $t('Are you sure you want to delete:') }}<span class=" text-error"> {{ itemTitle }} </span> ?
         </div>
         <v-card-actions>
-          <v-btn class="text-white bg-info" text="Close Dialog" @click="openConfirem = false">Cansel</v-btn>
-          <v-btn class="text-white bg-error" text="Close Dialog " @click="deleteItemConfiremed()">Delete</v-btn>
+          <v-btn class="text-white bg-info" text="Close Dialog" @click="openConfirem = false">{{ $t('Cansel') }}</v-btn>
+          <v-btn class="text-white bg-error" text="Close Dialog " @click="deleteItemConfiremed()">{{ $t('Delete')
+            }}</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -26,7 +27,7 @@
           </v-icon>
         </v-card-title>
         <v-card-text class="font-weight-bold">
-          Are you sure you want to delete All items ?
+          {{ $t('Are you sure you want to delete All items ?') }}
         </v-card-text>
         <v-card-actions>
           <v-btn class="text-white bg-info" text="Close Dialog" @click="openConfiremAll = false">Cansel</v-btn>
@@ -113,17 +114,9 @@ body {
   font-family: "Almarai", sans-serif !important;
 }
 
-.page-enter-active,
-.page-leave-active {
-  transition: all 0.4s;
+.v-card-subtitle {
+  opacity: 1 !important;
 }
-
-.page-enter-from,
-.page-leave-to {
-  opacity: 0;
-  filter: blur(1rem);
-}
-
 
 .dark-mode body {
   background-color: #01070c;

@@ -5,10 +5,10 @@
                 <img src="/images/banner-bg.jpg" alt="">
             </div>
             <div class="banner-info">
-                <h1> <span>Huge Saving</span> On UHD Television</h1>
-                <p class="pt-6">Sale Up To 70% Off on Selected Item</p>
-                <v-btn class="my-4 px-6" style="font-weight: bold; " variant="outlined" rounded>Shop
-                    Now</v-btn>
+                <h1> <span> {{ $t('Huge Saving') }}</span> {{ $t('On UHD Television') }}</h1>
+                <p class="pt-6">{{ $t('Sale Up To 70% Off on Selected Item') }}</p>
+                <v-btn class="my-4 px-6" style="font-weight: bold; " variant="outlined" rounded> {{ $t('Shop Now')
+                    }}</v-btn>
             </div>
         </div>
     </div>
@@ -32,8 +32,8 @@ export default {
 
     .banner-info {
         position: absolute;
-        left: 40px;
-        top: 20px;
+        left: 80px;
+        top: 40px;
         width: 50%;
     }
 
@@ -59,8 +59,12 @@ export default {
 
         font-size: 20px;
 
+        .banner-info {
+            top: 30px;
+        }
+
         h1 {
-            font-size: 40px !important;
+            font-size: 50px !important;
         }
     }
 
@@ -69,9 +73,11 @@ export default {
 @media (max-width:992px) {
     .banner-info {
         font-size: 15px !important;
+        max-width: 400px;
 
         h1 {
-            font-size: 34px !important;
+            font-size: 40px !important;
+            line-height: 100%;
         }
     }
 
@@ -80,12 +86,34 @@ export default {
 @media (max-width:767px) {
 
     .banner-info {
-        top: 0 !important;
+        top: 20px !important;
         font-size: 12px !important;
+        max-width: 300px;
+        left: 40px !important;
+
+        p {
+            padding-top: 10px !important;
+        }
 
         h1 {
-            font-size: 24px !important;
+            font-size: 30px !important;
+
             padding-top: 2px;
+        }
+
+        .v-btn {
+            margin-top: 10px !important;
+            font-size: 10px;
+            padding: 6px 16px !important;
+        }
+    }
+}
+
+@media (max-width:539px) {
+
+    .banner-info {
+        .v-btn {
+            display: none;
         }
     }
 }

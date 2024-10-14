@@ -17,14 +17,17 @@
         </v-breadcrumbs>
       </v-col>
     </v-row>
-    <v-data-table v-model="order.prodIds" v-if="order.userOrders.length" :items="order.userOrders" show-select>
-      <template v-slot:top>
-        <DeleteIcon />
-      </template>
-    </v-data-table>
+    <div id="div">
+      <v-data-table v-model="order.prodIds" v-if="order.userOrders.length" :items="order.userOrders" show-select>
+        <template v-slot:top>
+          <DeleteIcon />
+        </template>
+      </v-data-table>
+    </div>
     <v-skeleton-loader v-if="!order.userOrders.length" type="card, text, text, text"></v-skeleton-loader>
   </v-container>
   <PopUpDelete />
+
 </template>
 
 <script>
@@ -48,7 +51,8 @@ export default {
     onBeforeMount(async () => {
       await order.getUserOrders()
     })
-    return { order, items }
+
+    return { order, items, }
   }
 }
 </script>

@@ -5,7 +5,7 @@
         <div class="proDetCmnt-col1" role="tablist">
           <button class="proDetCmnt-col1-tab" id="reviewsTab" data-bs-toggle="tab" data-bs-target="#reviewsCont"
             type="button" role="tab" aria-controls="reviewsCont" aria-selected="false">
-            Reviews
+            {{ $t('Reviews') }}
             <span class="d-flex align-center justify-center r-50">{{ productRev.length }}</span>
           </button>
         </div>
@@ -16,11 +16,12 @@
               <div class="proDetCmnt-cntnt-b1">
                 <textarea placeholder="Write Comment" class="reviewsBox3-textarea" v-model="comment"></textarea>
                 <div class="reviewsBox3-row d-flex align-center  ga-4 justify-space-between">
-                  <div class="reviewsBox3-row-inn" v-if="user.value">
-                    You must be logged in to post a review.
+                  <div class="reviewsBox3-row-inn" v-if="!user">
+                    {{ $t('You must be logged in to post a review .') }}
                   </div>
                   <button @click="addReview()" v-if="comment.length > 0 && rating.length >= 0"
-                    class="reviewsBox3-row-inn2 disabled d-flex align-center justify-content-center">Publish</button>
+                    class="reviewsBox3-row-inn2 disabled d-flex align-center justify-content-center">{{ $t('Publish')
+                    }}</button>
                 </div>
               </div>
               <div class="reviewsBox-seprator"></div>
@@ -33,7 +34,7 @@
                   </svg>
 
                   <div class="reviewsBoxInner-s1-box">
-                    <h1 class="reviewsBoxInner-s1-h reviewsBoxInner-s1-h--a">Add Rating
+                    <h1 class="reviewsBoxInner-s1-h reviewsBoxInner-s1-h--a">{{ $t('Add Rating') }}
                     </h1>
                   </div>
                 </div>
@@ -213,8 +214,9 @@
                     </svg>
                     <div class="reviewsBoxInner-s1-box">
                       <h1 class="reviewsBoxInner-s1-h">{{ Math.floor(productDetails.rating) }}
-                        Rating</h1>
-                      <p class="reviewsBoxInner-s1-p">Based on {{ productRev.length }} reviews</p>
+                        {{ $t('Rating') }}</h1>
+                      <p class="reviewsBoxInner-s1-p">{{ $t('Based on') }} {{ productRev.length }} {{ $t('reviews') }}
+                      </p>
                     </div>
                   </div>
                   <div class="reviewsBoxInner-row d-flex align-center ">

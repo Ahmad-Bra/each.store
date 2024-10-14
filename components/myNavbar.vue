@@ -1,14 +1,14 @@
 <template>
   <div class="navbar w-100 d-flex align-center">
     <div class="main-nav" style=" background-color: rgb(3, 3, 154); padding: 10px 20px; width: 100%">
-      <v-row class=" gap-3 align-center justify-center">
-        <v-col cols="2 text-center">
-          <img style="cursor: pointer; width:60px; height: 60px; border-radius: 10px;"
+      <v-row class=" ma-auto align-center justify-center">
+        <v-col cols="2 " class=" py-0">
+          <img style="cursor: pointer; width:50px; height: 50px; border-radius: 10px;"
             @click="$router.push({ path: '/' })" src="/images/logo.jpg" alt="logo">
         </v-col>
-        <v-col cols="6">
-          <div style="display: flex; width:100%;">
-            <v-autocomplete prepend-inner-icon="mdi-magnify" clearable style="color: #eee;" :items="routes"
+        <v-col cols="8" class="py-0">
+          <div style="display: flex; width:75%; margin: auto">
+            <v-autocomplete prepend-inner-icon="mdi-magnify" clearable style="color: #eee;" :items="categories"
               v-model="catName[0]" class="w-75 px-5 inp" :label="$t('search in store')"></v-autocomplete>
             <v-btn
               style="text-align: center; align-content: center;transform: translateY(10px); background-color: rgb(0 82 180 / 0%) !important"
@@ -18,7 +18,7 @@
             </v-btn>
           </div>
         </v-col>
-        <v-col cols="4">
+        <v-col cols="2" class="py-0">
           <div class="icons d-flex align-center justify-end ga-2">
             <v-menu v-if="user" v-model="menu" :close-on-content-click="false" location="end">
               <template v-slot:activator="{ props }">
@@ -39,10 +39,10 @@
                 <v-card-text v-if="user">
                   <ul class="user-links">
                     <li>
-                      <NuxtLink to="/favoritePage"> <v-icon>mdi-heart</v-icon>My Wishlist </NuxtLink>
+                      <NuxtLink to="/favoritePage"> <v-icon>mdi-heart</v-icon> {{ $t('My Wishlist') }} </NuxtLink>
                     </li>
                     <li>
-                      <NuxtLink to="/order/"> <v-icon>mdi-order-bool-ascending-variant</v-icon>My Orders
+                      <NuxtLink to="/order/"> <v-icon>mdi-order-bool-ascending-variant</v-icon>{{ $t('My Orders') }}
                       </NuxtLink>
                     </li>
                   </ul>
@@ -57,7 +57,7 @@
 
               </v-card>
             </v-menu>
-            <v-btn @click="navigateTo('/login')" v-if="!user" rounded class="sign-btn">Sign in </v-btn>
+            <v-btn @click="navigateTo('/login')" v-if="!user" rounded class="sign-btn">{{ $t('Sign in') }} </v-btn>
             <v-icon style="margin-right: 10px; text-align: end;" color="orange-lighten-4 " size="40px"
               @click="openCart()">
               mdi-cart</v-icon>
@@ -65,10 +65,10 @@
               color="red-darken-3"></v-badge>
           </div>
         </v-col>
-        <v-row class="align-center">
-          <v-col cols="9">
+        <v-row class="align-center ma-auto">
+          <v-col cols="9" class="py-0">
             <ul class="d-flex align-center justify-start ">
-              <li style="list-style: none; color: white; font-weight: 500; margin-right: 20px"
+              <li class="categ" style="list-style: none; color: white; font-weight: 500; margin-right: 20px"
                 v-for="link in categories" :key="link.title" @click="this.catName[0] = link.route">
                 <nuxt-link :to="{ path: `/productCategory/${link.route}` }"
                   style="text-decoration: none; color: white">{{
@@ -77,8 +77,8 @@
               </li>
             </ul>
           </v-col>
-          <v-col cols="3">
-            <div class="info-lang d-flex   justify-end ">
+          <v-col cols="3" class="py-0">
+            <div class="info-lang d-flex align-center justify-end ">
               <div class="px-5">
                 <span style="cursor: pointer " v-if="$colorMode.preference == 'light'"
                   @click="$colorMode.preference = 'dark'" class="text-white">
@@ -184,15 +184,15 @@
             <v-card-text>
               <ul class="user-links">
                 <li>
-                  <NuxtLink to="/favoritePage"> <v-icon>mdi-heart</v-icon>My Wishlist </NuxtLink>
+                  <NuxtLink to="/favoritePage"> <v-icon>mdi-heart</v-icon> {{ $t('My Wishlist') }} </NuxtLink>
                 </li>
                 <li>
-                  <NuxtLink to="/order/"> <v-icon>mdi-order-bool-ascending-variant</v-icon>My Orders
+                  <NuxtLink to="/order/"> <v-icon>mdi-order-bool-ascending-variant</v-icon>{{ $t('My Orders') }}
                   </NuxtLink>
                 </li>
               </ul>
               <v-card-actions class="pa-0">
-                <v-btn @click=" logout()" class=" text-error">
+                <v-btn @click="logout()" class=" text-error">
                   {{ $t('Logout') }} &nbsp;
                   <v-icon style=" font-size: 25px;">mdi-logout</v-icon>
                 </v-btn>
@@ -200,7 +200,7 @@
             </v-card-text>
           </v-card>
         </v-menu>
-        <v-btn @click="navigateTo('/login')" v-if="!user" rounded class="sign-btn">Sign in </v-btn>
+        <v-btn @click="navigateTo('/login')" v-if="!user" rounded class="sign-btn"> {{ $t('Sign in') }}</v-btn>
         <v-icon style="margin-right: 10px; text-align: end;" color="orange-lighten-4 " size="40px" @click="openCart()">
           mdi-cart</v-icon>
         <v-badge location="right top" :content="cartItem.length" offsetX="25" offsetY="-15"
@@ -265,17 +265,6 @@ export default {
       menuRespo: false,
       fav: false,
       value: '',
-      routes: [
-        "smartphones",
-        "laptops",
-        "lighting",
-        "groceries",
-        "furniture",
-        "home-decoration",
-        "mens-watches",
-        "mens-shirts",
-        "sunglasses",
-      ],
     }
   },
 }
@@ -291,6 +280,15 @@ export default {
     border-radius: 20px;
     outline: none;
     height: 40px;
+  }
+}
+
+.categ {
+  a {
+    &:hover {
+      color: #7f7fdb !important;
+      transition: .3s;
+    }
   }
 }
 

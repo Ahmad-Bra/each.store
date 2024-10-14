@@ -10,20 +10,20 @@
         </v-card-title>
         <v-card-text class="py-2">
           {{ cart.cartItem.length }}
-          <p class="pt-5">Free shipping for all order over $10000.00!</p>
+          <p class="pt-5"> {{ $t('Free shipping for all order over $10000.00!') }}</p>
         </v-card-text>
         <v-card-text class="text-center">
-          your cart is empty
+          {{ $t('your cart is empty') }}
         </v-card-text>
         <v-card-actions>
           <v-btn @click="[navigateTo('/'), drawer = false]" class="mt-10" rounded elevation="2" height="50"
-            width="100%">Continue Shopping</v-btn>
+            width="100%"> {{ $t('Continue Shopping') }}</v-btn>
         </v-card-actions>
       </v-card>
       <v-card elevation="0" v-if="cart.cartItem.length">
         <v-card-title>
           <div class="d-flex align-center">
-            <p class="flex-grow-1">Shopping Cart</p>
+            <p class="flex-grow-1"> {{ $t('Shopping Cart') }}</p>
             <v-icon @click="drawer = false">mdi-close</v-icon>
           </div>
         </v-card-title>
@@ -33,9 +33,9 @@
             :model-value="parseInt((subTotprice / 10000) * 100) <= 100 ? parseInt((subTotprice / 10000) * 100) : 100"></v-progress-linear>
         </v-card-text>
         <v-card-text>
-          <p class="pt-5" v-if="10000 - subTotprice < 0">Your order over free shipping </p>
-          <p class="pt-5" v-if="10000 - subTotprice > 0"> Only $ {{ (10000 - subTotprice).toFixed(2) }} away from free
-            shepping
+          <p v-if="10000 - subTotprice < 0">{{ $t('Your order over free shipping') }}</p>
+          <p v-if="10000 - subTotprice > 0"> {{ $t('Only $') }} {{ (10000 - subTotprice).toFixed(2) }} {{
+            $t('away from free shepping') }}
           </p>
         </v-card-text>
         <v-card-text>
@@ -62,7 +62,7 @@
                 </div>
               </v-col>
               <v-card-text class="d-flex align-center justify-space-between ">
-                <strong>Subtotale</strong>
+                <strong> {{ $t('Subtotale') }}</strong>
                 <span class="text-red">$ {{ subTotprice }}</span>
               </v-card-text>
             </v-row>
@@ -135,7 +135,7 @@ export default {
 
 .cart-item {
   &::-webkit-scrollbar {
-    width: 5px;
+    width: 0px;
   }
 
   &::-webkit-scrollbar-thumb {

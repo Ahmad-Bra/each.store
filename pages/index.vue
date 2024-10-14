@@ -12,11 +12,12 @@
     <HomePageImagesBanner />
     <HomePageProductsComponent :products="products" title="Flash Deals" color="#C62828" />
     <HomePageTopCategory :categor="products" />
-    <HomePageNewProducts :newItmes="topFragrances" />
+    <HomePageNewProducts :newItmes="topSmartPhones.slice(0, 9)" />
     <HomePageFeaturesServices />
     <HomePageFeaturedBand />
-    <HomePageProductsComponent :products="topFragrances" title="Top Fragrances" color="#C62828" />
+    <HomePageProductsComponent :products="topSmartPhones" title="Top SmartPhones" color="#C62828" />
     <HomePageTopTelevision />
+    <HomePageProductsComponent :products="accessories" title="" color="#C62828" />
     <HomePageWhyShop />
     <myFooter />
   </div>
@@ -26,7 +27,10 @@ import { ProductsModule } from "~/stores/Products"
 import { mapActions, mapState } from "pinia"
 import { Cart } from "~/stores/cart.js"
 export default {
+  setup() {
+  },
   data() {
+
     return {
       openConfirem: false,
     }
@@ -35,7 +39,7 @@ export default {
     ...mapActions(ProductsModule, ["getProducts"]),
   },
   computed: {
-    ...mapState(ProductsModule, ["products", "newProducts", "topFragrances"]),
+    ...mapState(ProductsModule, ["products", "newProducts", "topSmartPhones", "accessories"]),
     ...mapState(Cart, ["cartItem", "confDelete"]),
   }, watch: {
     confDelete(newV, oldV) {

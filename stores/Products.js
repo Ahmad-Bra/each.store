@@ -8,8 +8,7 @@ export const ProductsModule = defineStore("ProductsModule", {
     products: [],
     newProducts: [],
     topSmartPhones: [],
-    topFragrances: [],
-    topSkinCare: [],
+    accessories: [],
     productsCategory: [],
     productDetails: "",
     productRev: [],
@@ -23,32 +22,16 @@ export const ProductsModule = defineStore("ProductsModule", {
         route: "laptops",
       },
       {
-        title: "Lighting",
-        route: "lighting",
-      },
-      {
-        title: "Groceries",
-        route: "groceries",
-      },
-      {
-        title: "Furniture",
-        route: "furniture",
-      },
-      {
-        title: "HomeDecoration",
-        route: "home-decoration",
-      },
-      {
         title: "MensWatches",
         route: "mens-watches",
       },
       {
-        title: "MensShirts",
-        route: "mens-shirts",
+        title: "Tablets",
+        route: "tablets",
       },
       {
-        title: "Sunglasses",
-        route: "sunglasses",
+        title: "Mobile Accessories",
+        route: "mobile-accessories",
       },
     ],
   }),
@@ -74,15 +57,21 @@ export const ProductsModule = defineStore("ProductsModule", {
     },
     async getProducts() {
       await axios
-        .get("https://dummyjson.com/products")
+        .get("https://dummyjson.com/products/category/laptops")
         .then((res) => {
-          this.newProducts = res.data.products.filter(
-            (el) => el.category === "laptops"
-          );
-          this.products = res.data.products.slice(0, 10);
-          this.topFragrances = this.products.filter(
-            (el) => el.category === "fragrances"
-          );
+          this.products = res.data.products;
+        })
+        .catch(() => console.log("error data"));
+      await axios
+        .get("https://dummyjson.com/products/category/smartphones")
+        .then((res) => {
+          this.topSmartPhones = res.data.products;
+        })
+        .catch(() => console.log("error data"));
+      await axios
+        .get("https://dummyjson.com/products/category/mobile-accessories")
+        .then((res) => {
+          this.accessories = res.data.products;
         })
         .catch(() => console.log("error data"));
     },

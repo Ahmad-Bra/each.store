@@ -17,6 +17,9 @@
     "@nuxtjs/supabase": "^1.4.0",
     "@pinia/nuxt": "^0.5.5",
     "@unlok-co/nuxt-stripe": "^3.0.0",
+    "@vueuse/core": "^11.1.0",
+    "@vueuse/integrations": "^11.1.0",
+    "@vueuse/nuxt": "^11.1.0",
     "axios": "^1.7.7",
     "h3": "^1.12.0",
     "mitt": "^3.0.1",
@@ -27,6 +30,7 @@
     "nuxt-swiper": "^1.2.2",
     "pinia": "^2.2.4",
     "sass": "^1.77.8",
+    "sortablejs": "^1.15.3",
     "vue": "^3.4.27",
     "vue-router": "^4.3.2",
     "vuetify-nuxt-module": "^0.16.1"

@@ -41,15 +41,14 @@
               <input v-model="quantity" min="1" type="number" style="outline: none; width: 80px; text-align: center;">
               <v-icon @click="quantity++">mdi-plus</v-icon>
             </div>
-            <p class="mt-5"> subTotale : <span class="font-weight-bold text-red">
+            <p class="mt-5"> {{ $t('SubTotale:') }}<span class="font-weight-bold text-red">
                 ${{
                   ((productDetails.price - Math.ceil(productDetails.price *
                     productDetails.discountPercentage / 100)) * quantity).toFixed(2) }}</span> </p>
             <div class="d-flex align-center mt-10">
               <v-btn :loading="btnloading" @click="addToCart(productDetails)" class=" w-75"
                 style="color: white; background-color: black; font-weight: bold; width: 100%; height: 40px;" rounded>
-                Add To
-                Cart</v-btn>
+                {{ $t('Add To Cart') }}</v-btn>
               <v-btn style="font-weight: bold;" icon=" mdi-heart" variant="text" @click="addToFav(productDetails)">
               </v-btn>
             </div>

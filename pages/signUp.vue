@@ -8,25 +8,35 @@
     </Head>
     <div class="signUp">
       <v-container>
-        <v-row>
-          <v-col cols="12" class="col-md-12">
-            <div class="logins-box m-inline-auto">
+        <v-row class="align-center">
+          <v-col cols="6" data-aos="fade-right" data-aos-duration="1000">
+            <div class="img-holder">
+              <img style="max-width: 100%" src="/public/images/signup.jpg" alt="">
+            </div>
+          </v-col>
+          <v-col cols="6" class="col-md-12" data-aos="zoom-out" data-aos-duration="1500">
+            <h1 class="title"> {{ $t('Sign up:') }}</h1>
+            <p class="desc">{{ $t('Create New Account.') }}</p>
+            <div class="logins-box ">
               <form @submit.prevent action="" class="form mt-5">
                 <div class="form-input-box position-relative">
-                  <input v-model="email" type="username" class="form-control w-100  logins-input" placeholder="Email">
+                  <input v-model="email" type="username" class="form-control w-100  logins-input"
+                    :placeholder="$t('Email')">
                 </div>
                 <div class="form-input-box position-relative">
-                  <input v-model="password" type="password" class="form-control w-100 logins-input"
-                    placeholder="password">
+                  <input v-model="username" type="username" class="form-control w-100  logins-input"
+                    :placeholder="$t('Your Name')">
                 </div>
-                <div class="text-center text-error">
-                  {{ error }}
+                <div class="form-input-box position-relative ">
+                  <input v-model="password" :type="isVisible ? 'text' : 'password'"
+                    class="form-control w-100 mb-0 logins-input" :placeholder="$t('Password')">
+                  <v-icon @click="isVisible = !isVisible" class="eye-ic"
+                    :icon="!isVisible ? 'mdi-eye' : 'mdi-eye-off'"></v-icon>
                 </div>
-                <button @click="signup()" class="logins-btn text-center">signUp</button>
+                <button @click="signup()" class="logins-btn text-center">{{ $t('Sign Up') }}</button>
               </form>
-              <div class="logins-box-row d-flex align-items-center justify-center">Already have an accout
-                ?
-                <NuxtLink to="/login">Login</NuxtLink>
+              <div class="logins-box-row d-flex align-items-center justify-start">{{ $t("Already have an accout ?") }}
+                <NuxtLink class="link" to="/login">{{ $t('Login') }}</NuxtLink>
               </div>
             </div>
           </v-col>
@@ -38,10 +48,12 @@
 
 <script>
 
+
 export default {
   setup() {
     let email = ref('')
     let password = ref('')
+    let username = ref('')
     const user = useSupabaseUser()
     const client = useSupabaseClient()
     //sign up with new account
@@ -50,8 +62,15 @@ export default {
       try {
         let { data, error } = await client.auth.signUp({
           email: email.value,
-          password: password.value
+          password: password.value,
+          username: username.value
         })
+        console.log(data);
+
+        if (data.user) {
+          user.value.username = username.value
+        }
+
         if (error) {
           alert(error.message)
         }
@@ -64,12 +83,15 @@ export default {
         navigateTo('/')
       }
     })
+    // console.log(user.value.username);
+
     return {
-      client, user, email, password, signup,
+      client, user, email, password, signup, username,
     }
   },
   data() {
     return {
+      isVisible: false
     }
   },
 }
@@ -77,9 +99,24 @@ export default {
 
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .r-50 {
   border-radius: 50%;
+}
+
+.img-holder {
+
+  animation: move 3s infinite alternate;
+}
+
+@keyframes move {
+  0% {
+    transform: translateY(-20px);
+  }
+
+  100% {
+    transform: translateY(20px);
+  }
 }
 
 .form-input-box input:focus {
@@ -128,15 +165,16 @@ export default {
 .logins-input {
   height: 55px;
   border: 1px solid #d4d4d4;
-  color: #C3C3C3;
+  color: #121212;
   padding: 5px 15px;
-  font-size: 16px;
-  margin-bottom: 30px;
+  font-size: 14px;
+  margin-bottom: 16px;
+  border-radius: 4px;
+  outline: none;
 }
 
-.logins-input::placeholder {
-  color: #C3C3C3;
-  font-size: 16px;
+.logins-input:focus {
+  border: 1px solid #3978fe !important;
 }
 
 .logins-box {
@@ -154,17 +192,16 @@ export default {
 .logins-btn {
   width: 100%;
   height: 55px;
-  background-color: #B52429;
+  background: linear-gradient(90deg, #07063f -19.86%, #3978fe 100%);
   border-radius: 4px;
   font-size: 18px;
   font-weight: 500;
   color: #fff;
-  margin-bottom: 25px;
+  margin: 16px 0 25px;
 }
 
 .logins-btn:hover {
-  background-color: #fff;
-  color: #B52429;
+  color: #0D9EFF;
 }
 
 .logins-box-row-b1 {
@@ -186,6 +223,11 @@ export default {
 
 .logins-box-row-link:hover {
   color: #3AB4F2;
+}
+
+.logins-box-row {
+  font-size: 15px;
+  text-align: end;
 }
 
 .logins-box2-img {
@@ -233,6 +275,46 @@ export default {
   background-color: #fff;
   box-shadow: 0 3px 15px 0 rgba(0, 0, 0, 0.05);
   margin-bottom: 4px;
+}
+
+.title {
+  color: #2151b9;
+  font-size: 37px;
+}
+
+.desc {
+  font-size: 14px;
+  color: #07063f;
+  position: relative;
+  margin-bottom: 32px;
+
+  &::before {
+    position: absolute;
+    content: '';
+    width: 80px;
+    height: 3px;
+    border-radius: 4px;
+    background: linear-gradient(90deg, #07063f -19.86%, #3978fe 100%);
+    left: 0;
+    top: 32px;
+  }
+}
+
+.link {
+  color: #3978fe;
+  text-decoration: none;
+  font-size: 15px;
+  padding: 0 10px;
+}
+
+
+.eye-ic {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  color: #C3C3C3;
+  cursor: pointer;
+  transform: translateY(-50%);
 }
 
 .logo-boxlogo {

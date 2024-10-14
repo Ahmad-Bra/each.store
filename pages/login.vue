@@ -8,14 +8,17 @@
     </Head>
     <div class="logins">
       <v-container>
-        <v-row>
-          <v-col cols="12">
-            <h2 class="text-warning text-center" v-if="warningMsg"><v-icon>mdi-information-outline</v-icon> {{
-              warningMsg }}</h2>
+        <v-row class="align-center">
+          <v-col cols="6" data-aos="fade-right" data-aos-duration="1000">
+            <div class="img-holder">
+              <img style="max-width: 100%" src="/public/images/login.jpg" alt="">
+            </div>
           </v-col>
-          <v-col cols="12" class="col-md-12">
-            <div class="logins-box m-inline-auto">
-              <div class="d-flex align-center justify-space-between ga-4">
+          <v-col cols="6" class="col-md-12" data-aos="zoom-out" data-aos-duration="1500">
+            <div class="logins-box ">
+              <h1 class="title"> {{ $t('Continue with:') }}</h1>
+
+              <div class="prov d-flex align-center justify-space-between ga-4">
                 <div @click="loginGithub('github')" class="sign-github-btn flex-grow-1">
                   <svg width="21" height="21" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -64,25 +67,28 @@
                     </defs>
                   </svg>
                 </div>
+                <p><span>Or</span></p>
               </div>
               <form @submit.prevent action="" class="form mt-5">
                 <div class="form-input-box position-relative">
-                  <input v-model="email" type="username" class="form-control w-100  logins-input" placeholder="Email">
+                  <input v-model="email" type="username" class="form-control w-100  logins-input"
+                    :placeholder="$t('Email')">
                 </div>
-                <div class="form-input-box position-relative">
-                  <input v-model="password" type="password" class="form-control w-100 logins-input"
-                    placeholder="password">
+                <div class="form-input-box position-relative ">
+                  <input v-model="password" :type="isVisible ? 'text' : 'password'"
+                    class="form-control w-100 mb-0 logins-input" :placeholder="$t('Password')">
+                  <v-icon @click="isVisible = !isVisible" class="eye-ic"
+                    :icon="!isVisible ? 'mdi-eye' : 'mdi-eye-off'"></v-icon>
                 </div>
-                <button @click="login()" class="logins-btn text-center">Log in</button>
+                <button @click="login()" class="logins-btn text-center"> {{ $t('Log in') }}</button>
               </form>
               <div class="logins-box-row d-flex align-items-center justify-space-between ">
                 <nuxt-link to="/" style="text-decoration: none; " class="link text-black">
                   <v-icon>mdi-arrow-left</v-icon>
-                  Back Home</nuxt-link>
+                  {{ $t('Back Home') }}</nuxt-link>
                 <div>
-                  Don't have an
-                  account ?
-                  <NuxtLink to="/signUp">Create account</NuxtLink>
+                  {{ $t("Don't have an account ?") }}
+                  <NuxtLink to="/signUp" class="link "> {{ $t('Create account') }}</NuxtLink>
                 </div>
               </div>
             </div>
@@ -99,7 +105,6 @@ export default {
   setup() {
     let email = ref('')
     let password = ref('')
-    let warningMsg = ref(null)
     const user = useSupabaseUser()
     const client = useSupabaseClient()
     //sign up with github account
@@ -129,18 +134,13 @@ export default {
         navigateTo('/')
       }
     })
-    onMounted(() => {
-      warningMsg.value = `Please Sign In For Shipping Stuff !`
-      setTimeout(() => {
-        warningMsg.value = ''
-      }, 5000)
-    })
     return {
-      client, user, loginGoogle, loginGithub, email, password, login, warningMsg
+      client, user, loginGoogle, loginGithub, email, password, login
     }
   },
   data() {
     return {
+      isVisible: false
     }
   },
 }
@@ -148,7 +148,22 @@ export default {
 
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.img-holder {
+
+  animation: move 3s infinite alternate;
+}
+
+@keyframes move {
+  0% {
+    transform: translateY(-20px);
+  }
+
+  100% {
+    transform: translateY(20px);
+  }
+}
+
 .r-50 {
   border-radius: 50%;
 }
@@ -157,38 +172,38 @@ export default {
   border: 1px solid #0D9EFF;
 }
 
-.dark .dark-show {
+.dark-mode .dark-show {
   display: flex !important;
 }
 
-.dark .dark-none {
+.dark-mode .dark-none {
   display: none !important;
 }
 
-.dark .logo-box {
+.dark-mode .logo-box {
   background-color: #15212D;
 }
 
-.dark .logins-box-h {
+.dark-mode .logins-box-h {
   color: #fff;
 }
 
-.dark .logins-input {
+.dark-mode .logins-input {
   background-color: #2D343F;
   border-color: transparent;
   color: #fff;
 }
 
-.dark .logins-input::placeholder {
+.dark-mode .logins-input::placeholder {
   color: #fff;
 }
 
-.dark .logins-box-row-b1 {
+.dark-mode .logins-box-row-b1 {
   color: #fff;
 }
 
-.dark .logins-btn:hover {
-  background-color: #2D343F;
+.dark-mode .logins-btn:hover {
+  background: linear-gradient(90deg, #07063f -19.86%, #3978fe 100%);
   color: #fff;
 }
 
@@ -199,15 +214,30 @@ export default {
 .logins-input {
   height: 55px;
   border: 1px solid #d4d4d4;
-  color: #C3C3C3;
+  color: #121212;
   padding: 5px 15px;
-  font-size: 16px;
-  margin-bottom: 30px;
+  font-size: 14px;
+  margin-bottom: 16px;
+  border-radius: 4px;
+  outline: none;
+}
+
+.logins-input:focus {
+  border: 1px solid #3978fe !important;
 }
 
 .logins-input::placeholder {
   color: #C3C3C3;
   font-size: 16px;
+}
+
+.eye-ic {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  color: #C3C3C3;
+  cursor: pointer;
+  transform: translateY(-50%);
 }
 
 .logins-box {
@@ -225,17 +255,16 @@ export default {
 .logins-btn {
   width: 100%;
   height: 55px;
-  background-color: #B52429;
+  background: linear-gradient(90deg, #07063f -19.86%, #3978fe 100%);
   border-radius: 4px;
   font-size: 18px;
   font-weight: 500;
   color: #fff;
-  margin-bottom: 25px;
+  margin: 16px 0 25px;
 }
 
 .logins-btn:hover {
-  background-color: #fff;
-  color: #B52429;
+  color: #0D9EFF;
 }
 
 .logins-box-row-b1 {
@@ -255,8 +284,42 @@ export default {
   font-size: 16px;
 }
 
+.link {
+  color: #3978fe;
+  text-decoration: none;
+  font-size: 15px;
+
+}
+
 .logins-box-row-link:hover {
   color: #3AB4F2;
+}
+
+.prov {
+  position: relative;
+  padding-bottom: 30px;
+
+  p {
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 2px;
+    background: linear-gradient(90deg, #07063f -19.86%, #3978fe 100%);
+    position: absolute;
+    bottom: 5px;
+    border-radius: 4px;
+
+    span {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      background: #fff;
+      padding: 3px;
+      color: #333;
+
+    }
+  }
 }
 
 .logins-box2-img {
@@ -316,6 +379,12 @@ export default {
 .form-input-box input {
   box-shadow: none;
 
+}
+
+.title {
+  color: #2151b9;
+  font-size: 25px;
+  margin-bottom: 8px;
 }
 
 .sign-github-btn,

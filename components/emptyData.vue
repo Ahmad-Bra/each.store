@@ -1,7 +1,7 @@
 <template>
   <div class="empty-block text-center">
     <img src="/public/images/empty-bg.png" alt="">
-    <p>{{ $t('No Product has been added recently, Please add ') }}
+    <p>{{ $t('No Product has been added recently, Please add') }}
       <span>{{ $t('Product') }}</span>
     </p>
   </div>

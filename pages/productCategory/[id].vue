@@ -25,11 +25,11 @@
             <v-card elevation="0">
               <v-card-item>
                 <v-card-subtitle style="position: relative;" class="img-holder">
-                  <img style="height: 200px;"
+                  <img style="height: 350px;"
                     :src="ShownItem[categor.title] ? ShownItem[categor.title] : categor.thumbnail" alt="">
                   <v-btn @click="quickView(categor)" variant="outlined" rounded class="quick bg-white"
                     style="height: 30px; position: absolute; inset: 50%; transform: translate(-50%, -50%); font-size: 12px;width: 100px; ">
-                    Quick View
+                    {{ $t('Quick View') }}
                   </v-btn>
                 </v-card-subtitle>
                 <v-card-text>
@@ -58,8 +58,7 @@
                   <v-btn style="font-weight: bold;" icon=" mdi-heart" variant="text" @click="addToFav(categor)">
                   </v-btn>
                   <v-btn @click="navigateTo(`/productDetails/${categor.id}`)" rounded class=" w-75 btn"
-                    style="width: 100%; padding: 3px 0; font-weight: 500">Choose
-                    Options</v-btn>
+                    style="width: 100%; padding: 3px 0; font-weight: 500"> {{ $t('Choose Options') }}</v-btn>
                 </div>
               </v-card-item>
             </v-card>

@@ -11,7 +11,8 @@
         <v-row class="align-center">
           <v-col cols="6" data-aos="fade-right" data-aos-duration="1000">
             <div class="img-holder">
-              <img style="max-width: 100%" src="/public/images/signup.jpg" alt="">
+              <img style="max-width: 100%" src="/public/images/signup.png
+              " alt="">
             </div>
           </v-col>
           <v-col cols="6" class="col-md-12" data-aos="zoom-out" data-aos-duration="1500">
@@ -51,6 +52,13 @@
 
 export default {
   setup() {
+    useHead({
+      link: [
+        { rel: 'preload', href: '/public/images/signup.png', as: 'image' }
+      ]
+    }), defineRouteRules({
+      prerender: true,
+    });
     let email = ref('')
     let password = ref('')
     let username = ref('')

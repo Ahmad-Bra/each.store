@@ -11,7 +11,7 @@
         <v-row class="align-center">
           <v-col cols="6" data-aos="fade-right" data-aos-duration="1000">
             <div class="img-holder">
-              <img style="max-width: 100%" src="/public/images/login.jpg" alt="">
+              <img style="max-width: 100%" src="/public/images/login.png" alt="">
             </div>
           </v-col>
           <v-col cols="6" class="col-md-12" data-aos="zoom-out" data-aos-duration="1500">
@@ -103,6 +103,14 @@
 
 export default {
   setup() {
+    useHead({
+      link: [
+        { rel: 'preload', href: '/public/images/login.png', as: 'image' }
+      ]
+    }),
+     defineRouteRules({
+      prerender: true,
+    });
     let email = ref('')
     let password = ref('')
     const user = useSupabaseUser()
@@ -150,7 +158,6 @@ export default {
 
 <style scoped lang="scss">
 .img-holder {
-
   animation: move 3s infinite alternate;
 }
 
@@ -170,6 +177,11 @@ export default {
 
 .form-input-box input:focus {
   border: 1px solid #0D9EFF;
+}
+
+.dark-mode span {
+  background: #01070c !important;
+  color: white !important;
 }
 
 .dark-mode .dark-show {

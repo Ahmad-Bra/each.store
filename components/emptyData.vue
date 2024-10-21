@@ -14,6 +14,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.dark-mode {
+  .empty-block p {
+    color: white;
+  }
+}
+
 .empty-block {
   height: 400px;
   align-content: center;

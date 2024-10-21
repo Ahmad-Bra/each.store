@@ -28,6 +28,9 @@ import { mapActions, mapState } from "pinia"
 import { Cart } from "~/stores/cart.js"
 export default {
   setup() {
+    defineRouteRules({
+      prerender: true,
+    });
   },
   data() {
 

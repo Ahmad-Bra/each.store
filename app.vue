@@ -112,6 +112,7 @@ html[dir=rtl] body {
 
 body {
   font-family: "Almarai", sans-serif !important;
+  transition: background-color .5s ease;
 }
 
 .v-card-subtitle {

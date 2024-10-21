@@ -95,7 +95,7 @@ export default {
     }
   },
   async mounted() {
-    this.title = `${this.$route.params.id} page`
+    this.title = `${this.$route.params.id} | Each Store`
     this.loading = true
     await this.getByCategory(this.catName[0])
     this.loading = false

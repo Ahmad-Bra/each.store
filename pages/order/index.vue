@@ -35,9 +35,6 @@
 
 export default {
   setup() {
-    defineRouteRules({
-      prerender: true,
-    });
     const order = orders()
     let items = ref([
       {
